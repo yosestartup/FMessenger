@@ -2,7 +2,10 @@
 # platform :ios, '9.0'
 
 target 'FirebaseTest' do
+pod 'Firebase'
+pod 'Firebase/Auth'
 pod 'Firebase/Core'
+pod 'Firebase/Database'
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 

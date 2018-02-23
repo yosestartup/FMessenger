@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class LoginController: UIViewController {
     
@@ -43,6 +45,7 @@ class LoginController: UIViewController {
     
     let loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
+        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         button.backgroundColor = UIColor(r: 80, g: 101, b: 161)
         button.setTitle("Register", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
@@ -52,6 +55,7 @@ class LoginController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
+   
     
     let nameTextField: UITextField = {
         let textField = UITextField ()
@@ -89,6 +93,38 @@ class LoginController: UIViewController {
         return textField
     }()
     
+    @objc func handleRegister() {
+        guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
+            print("Form is not normal")
+            return
+        }
+        
+        Auth.auth().createUser(withEmail: email, password: password, completion:  { (user, error) in
+            if error != nil {
+                print(error)
+                return
+            }
+            
+            guard let uid = user?.uid else {
+                return
+            }
+            
+            let ref: DatabaseReference!
+            ref = Database.database().reference(fromURL: "https://fmessenger-dd6b9.firebaseio.com/")
+            let usersReference = ref.child("users").child(uid)
+            let value = (["name" : name, "email" : email])
+            usersReference.updateChildValues(value, withCompletionBlock: { (err,ref) in
+                
+                if err != nil {
+                    print(err)
+                    return
+                }
+                
+                print("saved users")
+            })
+            
+        })
+    }
     
     func setupInputsContainerView() {
         //Need x, y, width, height cons
