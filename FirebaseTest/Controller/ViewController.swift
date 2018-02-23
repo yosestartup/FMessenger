@@ -9,12 +9,21 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import FirebaseAuth
 
 class ViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
+        
+        //user is not logg
+        if Auth.auth().currentUser?.uid == nil {
+            perform(#selector(handleLogout), with: nil, afterDelay: 0)
+            
+            handleLogout()
+        }
     
     }
 
@@ -25,6 +34,13 @@ class ViewController: UITableViewController {
 
     
     @objc func handleLogout() {
+        do {
+            try  Auth.auth().signOut()
+        } catch
+            let logoutError {
+            print(logoutError)
+        }
+        
         let loginController = LoginController()
         present(loginController, animated: true, completion: nil)
     }
