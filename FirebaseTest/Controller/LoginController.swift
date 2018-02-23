@@ -10,6 +10,14 @@ import UIKit
 
 class LoginController: UIViewController {
     
+    let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "")
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
     let inputsContainerView: UIView = {
          let view = UIView()
          view.backgroundColor = UIColor.white
@@ -25,9 +33,11 @@ class LoginController: UIViewController {
         view.backgroundColor = UIColor(r: 61, g: 91, b: 151)
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
+        view.addSubview(profileImageView)
      
         setupInputsContainerView()
         setupLoginRegisterButton()
+        setupProfileImageView()
     }// w
 
     
@@ -38,6 +48,8 @@ class LoginController: UIViewController {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 5
+        button.layer.masksToBounds = true
         return button
     }()
     
@@ -76,6 +88,7 @@ class LoginController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
+    
     
     func setupInputsContainerView() {
         //Need x, y, width, height cons
@@ -138,6 +151,13 @@ class LoginController: UIViewController {
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
+    func setupProfileImageView() {
+         //Need x, y, width, height cons
+        profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: -12).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+    }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }//v
