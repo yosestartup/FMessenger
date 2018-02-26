@@ -9,16 +9,50 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseStorage
 
-class LoginController: UIViewController {
+class LoginController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    let profileImageView: UIImageView = {
+    lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "")
-        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "logo-logomark")
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView)))
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    
+    @objc func handleSelectProfileImageView() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+        print (11)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        var selected: UIImage?
+        if let editedImage = info["UIImagePickerEditedImage"] {
+        
+            selected = editedImage as? UIImage
+            
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] {
+            
+            selected = originalImage as? UIImage
+        }
+        
+        if let image = selected {
+            profileImageView.image = selected
+        }
+        dismiss(animated: true, completion: nil)
+     
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print(3)
+        dismiss(animated: true, completion: nil)
+    }
     
     let inputsContainerView: UIView = {
          let view = UIView()
@@ -104,6 +138,11 @@ class LoginController: UIViewController {
         return sc
     }()
     
+    
+//    @objc func handleSelectProfileImageView() {
+//        print()
+//    }
+    
     @objc func handleLoginRegisterChange() {
         
         let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
@@ -164,21 +203,52 @@ class LoginController: UIViewController {
                 return
             }
             
-            let ref: DatabaseReference!
-            ref = Database.database().reference(fromURL: "https://fmessenger-dd6b9.firebaseio.com/")
-            let usersReference = ref.child("users").child(uid)
-            let value = (["name" : name, "email" : email])
-            usersReference.updateChildValues(value, withCompletionBlock: { (err,ref) in
-                
-                if err != nil {
-                    print(err)
-                    return
-                }
-                self.dismiss(animated: true, completion: nil)
-            })
+            
+            let imageName = NSUUID().uuidString
+            
+            let storage = Storage.storage().reference().child("profile_images").child("\(imageName).png")
+            if let uploadData = UIImagePNGRepresentation(self.profileImageView.image!) {
+                storage.putData(uploadData, metadata: nil, completion: { (file, error) in
+                    if error != nil {
+                        print (error)
+                        return
+                    }
+                    //print (file)
+                    if let  profileImageUrl = file?.downloadURL()?.absoluteString {
+                        
+                        let value = (["name" : name, "email" : email, "profileImageUrl" : profileImageUrl])
+                          self.registerUserIntoDatabaseWithUid(uid: uid, values: value)
+                    }
+                  
+                    
+                })
+            }
+            
+            
             
         })
     }
+    
+    
+    private func registerUserIntoDatabaseWithUid(uid: String, values: [String:Any]) {
+        
+        
+        let ref: DatabaseReference!
+        ref = Database.database().reference(fromURL: "https://fmessenger-dd6b9.firebaseio.com/")
+        let usersReference = ref.child("users").child(uid)
+       
+        usersReference.updateChildValues(values, withCompletionBlock: { (err,ref) in
+            
+            if err != nil {
+                print(err)
+                return
+            }
+            self.dismiss(animated: true, completion: nil)
+        })
+        
+    }
+    
+    
     
     var inputContainerViewHeightAnchor: NSLayoutConstraint?
     var nameTextFieldHeightAnchor: NSLayoutConstraint?
