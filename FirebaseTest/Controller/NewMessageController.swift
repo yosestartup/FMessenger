@@ -60,7 +60,6 @@ class NewMessageController: UITableViewController {
         cell.textLabel?.text = user.name
         cell.detailTextLabel?.text = user.email
         cell.imageView?.image = UIImage(named: "nedstark")
-        
         return cell
     }
 
