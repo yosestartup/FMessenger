@@ -20,8 +20,31 @@ class MessagesController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleNewMessage))
         
         //user is not logg
-       checkIfUserIsLoggedIn()
+        
+        checkIfUserIsLoggedIn()
+       
     
+    }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        checkIfUserIsLoggedIn()
+//    }
+    func fetchUsersAndSetNavBarTitle() {
+        
+        guard let uid = Auth.auth().currentUser?.uid else {
+            return
+        }
+        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snap) in
+            if let dictionary = snap.value as? [String : Any]   {
+                
+                self.navigationItem.title = dictionary["name"] as? String
+                
+                let user = User(dictionary: dictionary as [String : AnyObject])
+                self.setupNavBarWithUser(user: user)
+                
+            }
+            
+        })
     }
     
     @objc func handleNewMessage() {
@@ -38,17 +61,60 @@ class MessagesController: UITableViewController {
             
             handleLogout()
         } else {
-            if let uid = Auth.auth().currentUser?.uid {
-                Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snap) in
-                    if let dictionary = snap.value as? [String : Any]   {
-                         self.navigationItem.title = dictionary["name"] as? String
-                    }
-                    
-                })
+           fetchUsersAndSetNavBarTitle()
             }
             
             
         }
+    
+    
+    func setupNavBarWithUser(user: User) {
+        let imageCache = NSCache<AnyObject, AnyObject>()
+        let titleView = UIView()
+        titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
+        
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        titleView.addSubview(containerView)
+        //d
+        let profileImage = UIImageView()
+        profileImage.translatesAutoresizingMaskIntoConstraints = false
+        profileImage.clipsToBounds = true
+        profileImage.contentMode = .scaleAspectFill
+        profileImage.layer.cornerRadius = 20
+
+        
+        
+        if let profileImageUrl = user.profileImageUrl {
+            profileImage.loadImagesUsingCacheWithUrlString(urlString: profileImageUrl, imageCache: imageCache)
+        containerView.addSubview(profileImage)
+            
+        profileImage.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        profileImage.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        profileImage.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        profileImage.heightAnchor.constraint(equalToConstant: 40).isActive =  true
+            
+            
+        let nameLabel = UILabel()
+             containerView.addSubview(nameLabel)
+        nameLabel.text = user.name
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 8).isActive = true
+        nameLabel.centerYAnchor.constraint(equalTo: profileImage.centerYAnchor).isActive = true
+        nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        nameLabel.heightAnchor.constraint(equalTo: profileImage.heightAnchor).isActive = true
+            
+        
+        containerView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
+        containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
+        
+            
+       
+        self.navigationItem.titleView = titleView
+        }
+       
+        self.navigationItem.title = user.name
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -65,6 +131,7 @@ class MessagesController: UITableViewController {
         }
         
         let loginController = LoginController()
+        loginController.messagesController = self
         present(loginController, animated: true, completion: nil)
     }
 }

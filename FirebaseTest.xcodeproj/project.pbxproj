@@ -10,6 +10,7 @@
 		3F881950DF9751F3B587F7D0 /* Pods_FirebaseTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B186BD34704FA7C851E4CB34 /* Pods_FirebaseTestUITests.framework */; };
 		B1849CAC2042F79600187DC1 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1849CAB2042F79600187DC1 /* NewMessageController.swift */; };
 		B1849CAE2042FE2600187DC1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1849CAD2042FE2600187DC1 /* User.swift */; };
+		B1A3D7F8204492CC00DBB9F0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1D316472044895E00D94A7B /* GoogleService-Info.plist */; };
 		B1E046A3203EF85F00A578E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E046A2203EF85F00A578E3 /* AppDelegate.swift */; };
 		B1E046A5203EF85F00A578E3 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E046A4203EF85F00A578E3 /* MessagesController.swift */; };
 		B1E046A8203EF85F00A578E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1E046A6203EF85F00A578E3 /* Main.storyboard */; };
@@ -50,7 +51,7 @@
 		B1849CAB2042F79600187DC1 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 		B1849CAD2042FE2600187DC1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B186BD34704FA7C851E4CB34 /* Pods_FirebaseTestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FirebaseTestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B1D3163820447E9100D94A7B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B1D316472044895E00D94A7B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B1E0469F203EF85F00A578E3 /* FirebaseTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1E046A2203EF85F00A578E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1E046A4203EF85F00A578E3 /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
@@ -152,7 +153,7 @@
 				B1E046A9203EF85F00A578E3 /* Assets.xcassets */,
 				B1E046AB203EF85F00A578E3 /* LaunchScreen.storyboard */,
 				B1E046AE203EF85F00A578E3 /* Info.plist */,
-				B1D3163820447E9100D94A7B /* GoogleService-Info.plist */,
+				B1D316472044895E00D94A7B /* GoogleService-Info.plist */,
 			);
 			path = FirebaseTest;
 			sourceTree = "<group>";
@@ -317,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1E046AD203EF85F00A578E3 /* LaunchScreen.storyboard in Resources */,
+				B1A3D7F8204492CC00DBB9F0 /* GoogleService-Info.plist in Resources */,
 				B1E046AA203EF85F00A578E3 /* Assets.xcassets in Resources */,
 				B1E046A8203EF85F00A578E3 /* Main.storyboard in Resources */,
 			);
@@ -590,6 +592,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 42HSZXZUT7;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -606,7 +609,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -647,6 +650,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 42HSZXZUT7;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -657,7 +661,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

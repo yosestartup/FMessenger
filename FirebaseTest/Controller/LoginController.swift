@@ -13,6 +13,9 @@ import FirebaseStorage
 
 class LoginController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    var  messagesController: MessagesController?
+    
+    
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -176,6 +179,7 @@ class LoginController: UIViewController, UIImagePickerControllerDelegate, UINavi
                         print(error)
                         return
                     }
+                    self.messagesController?.fetchUsersAndSetNavBarTitle() 
                     self.dismiss(animated: true, completion: nil)
                 })
     }
@@ -207,7 +211,7 @@ class LoginController: UIViewController, UIImagePickerControllerDelegate, UINavi
             let imageName = NSUUID().uuidString
             
             let storage = Storage.storage().reference().child("profile_images").child("\(imageName).png")
-            if let uploadData = UIImagePNGRepresentation(self.profileImageView.image!) {
+            if let profileImage = self.profileImageView.image, let uploadData = UIImageJPEGRepresentation(profileImage, 0.7) {
                 storage.putData(uploadData, metadata: nil, completion: { (file, error) in
                     if error != nil {
                         print (error)
@@ -223,8 +227,6 @@ class LoginController: UIViewController, UIImagePickerControllerDelegate, UINavi
                     
                 })
             }
-            
-            
             
         })
     }
@@ -243,7 +245,13 @@ class LoginController: UIViewController, UIImagePickerControllerDelegate, UINavi
                 print(err)
                 return
             }
+            
+            let user = User(dictionary: values as [String : AnyObject])
+            self.messagesController?.setupNavBarWithUser(user: user)
+            //self.messagesController?.navigationItem.title = values["name"] as! String
+            
             self.dismiss(animated: true, completion: nil)
+            
         })
         
     }
