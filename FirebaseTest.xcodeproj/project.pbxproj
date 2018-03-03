@@ -11,6 +11,7 @@
 		B1849CAC2042F79600187DC1 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1849CAB2042F79600187DC1 /* NewMessageController.swift */; };
 		B1849CAE2042FE2600187DC1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1849CAD2042FE2600187DC1 /* User.swift */; };
 		B1A3D7F8204492CC00DBB9F0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1D316472044895E00D94A7B /* GoogleService-Info.plist */; };
+		B1A5160A2048639C00058266 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A516092048639C00058266 /* ChatLogController.swift */; };
 		B1E046A3203EF85F00A578E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E046A2203EF85F00A578E3 /* AppDelegate.swift */; };
 		B1E046A5203EF85F00A578E3 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E046A4203EF85F00A578E3 /* MessagesController.swift */; };
 		B1E046A8203EF85F00A578E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1E046A6203EF85F00A578E3 /* Main.storyboard */; };
@@ -51,6 +52,7 @@
 		B1849CAB2042F79600187DC1 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 		B1849CAD2042FE2600187DC1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B186BD34704FA7C851E4CB34 /* Pods_FirebaseTestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FirebaseTestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1A516092048639C00058266 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		B1D316472044895E00D94A7B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B1E0469F203EF85F00A578E3 /* FirebaseTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1E046A2203EF85F00A578E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				B1849CAB2042F79600187DC1 /* NewMessageController.swift */,
 				B1849CAD2042FE2600187DC1 /* User.swift */,
 				B1E046D5203EFD1100A578E3 /* LoginController.swift */,
+				B1A516092048639C00058266 /* ChatLogController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1A5160A2048639C00058266 /* ChatLogController.swift in Sources */,
 				B1849CAC2042F79600187DC1 /* NewMessageController.swift in Sources */,
 				B1E046A5203EF85F00A578E3 /* MessagesController.swift in Sources */,
 				B1E046D6203EFD1100A578E3 /* LoginController.swift in Sources */,

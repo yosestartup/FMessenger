@@ -37,6 +37,7 @@ class NewMessageController: UITableViewController {
             if let dictionary = snap.value as? [String:Any]
             {
                 var user = User(dictionary: dictionary as [String : AnyObject])
+                user.id = snap.key
                 self.users.append(user)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -46,6 +47,14 @@ class NewMessageController: UITableViewController {
         }
     }
     
+    var messagesController: MessagesController?
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dismiss(animated: true) {
+            let user = self.users[indexPath.row]
+            self.messagesController?.showChatController(forUser: user)
+            
+        }
+    }
     @objc func handleCancel() {
         dismiss(animated: true, completion: nil)
     }

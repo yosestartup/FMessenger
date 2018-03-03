@@ -11,7 +11,7 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
-class MessagesController: UITableViewController {
+class MessagesController: UITableViewController, UIGestureRecognizerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +49,7 @@ class MessagesController: UITableViewController {
     
     @objc func handleNewMessage() {
         let newMessageController = NewMessageController()
+        newMessageController.messagesController = self
         let navController = UINavigationController(rootViewController: newMessageController)
         present(navController, animated: true, completion: nil)
     }
@@ -67,17 +68,26 @@ class MessagesController: UITableViewController {
             
         }
     
+    @objc func showChatController(forUser: User) {
+        let chatLogController = ChatLogController()
+        chatLogController.user = forUser
+        navigationController?.pushViewController(chatLogController, animated: true)
+    }
     
     func setupNavBarWithUser(user: User) {
         let imageCache = NSCache<AnyObject, AnyObject>()
-        let titleView = UIView()
+        var titleView: UIButton = UIButton()
+      
         titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
         
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         titleView.addSubview(containerView)
         //d
+  
+ 
         let profileImage = UIImageView()
+        
         profileImage.translatesAutoresizingMaskIntoConstraints = false
         profileImage.clipsToBounds = true
         profileImage.contentMode = .scaleAspectFill
@@ -95,24 +105,29 @@ class MessagesController: UITableViewController {
         profileImage.heightAnchor.constraint(equalToConstant: 40).isActive =  true
             
             
+        }
         let nameLabel = UILabel()
-             containerView.addSubview(nameLabel)
+        containerView.addSubview(nameLabel)
         nameLabel.text = user.name
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 8).isActive = true
         nameLabel.centerYAnchor.constraint(equalTo: profileImage.centerYAnchor).isActive = true
         nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
         nameLabel.heightAnchor.constraint(equalTo: profileImage.heightAnchor).isActive = true
-            
+        
         
         containerView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
         containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
         
-            
-       
+        
+        
+        
         self.navigationItem.titleView = titleView
-        }
-       
+        
+        //titleView.addTarget(self, action: #selector(showChatController), for: .touchUpInside)
+        
+        
+    
         self.navigationItem.title = user.name
         
     }
@@ -134,5 +149,6 @@ class MessagesController: UITableViewController {
         loginController.messagesController = self
         present(loginController, animated: true, completion: nil)
     }
+ 
 }
 
