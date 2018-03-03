@@ -47,7 +47,7 @@ class ChatLogController: UIViewController {
           let ref = Database.database().reference().child("messages")
           let toId = user?.id
           let fromId = Auth.auth().currentUser?.uid
-          //let timestamp1 = NSNumber(value: Date().timeIntervalSinceNow)
+          //let timestamp1 = NSNumber(value: Date().timeIntervalSinceNow
           let timestamp = (Int(NSDate().timeIntervalSince1970))
           let childRef = ref.childByAutoId()
         let values = ["text" : inputTextField.text, "toId" : toId, "fromId" : fromId, "timestamp" : timestamp] as [String : Any]
